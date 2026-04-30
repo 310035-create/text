@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>班聯會學生管理者介面</title>
+    <style>
+        body {
+            background-color: #f0f4f8;
+            margin: 0;
+        }
+        .header-box{
+            background-color: #ffffff;
+            border: 2px solid #003a7c;
+            color: #003a7c;
+            text-align: center;
+            border-radius: 15px;
+        }
+        .context-card {
+            position: relative;
+            z-index: 0;
+            padding: 20px; /* 增加一點內邊距讓畫面不擁擠 */
+        }
+        .context-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #ffffff;
+            border-radius: 15px;
+            z-index: -1;
+        }
+        @keyframes upDown {
+            0% { transform: translateX(135px) translateY(0); }
+            8% { transform: translateX(135px) translateY(-75px); }
+            25% { transform: translateX(135px) translateY(-75px); }
+            45% { transform: translateX(-50px) translateY(-75px); }
+            47% { transform: translateX(-55px) translateY(-75px); }
+            50% { transform: translateX(-45px) translateY(-75px); }
+            53% { transform: translateX(-55px) translateY(-75px); }
+            56% { transform: translateX(-45px) translateY(-75px); }
+            59% { transform: translateX(-50px) translateY(-75px); }
+            85% { transform: translateX(-300px) translateY(-75px); }
+            95% { transform: translateX(-328px) translateY(-75px); }
+            100% { transform: translateX(-328px) translateY(0); }
+        }
+        .moving-image {
+            position: absolute;
+            z-index: -2;
+            top: 45px;
+            left: 50%;
+            width: 60px;
+            animation: upDown 7s infinite linear;
+        }
+
+        /* 標題樣式微調 */
+        h4 {
+            color: #2d3e50;
+            border-left: 5px solid #7688a7;
+            padding-left: 10px;
+            margin-top: 30px; /* 讓不同區塊分開一點 */
+        }
+
+        /* --- 以下是這次新增的卡片與網格樣式 --- */
+
+        /* 難點 1：網格排版 (Grid) */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px; /* 卡片之間的間距 */
+        }
+
+        /* 難點 2：卡片按鈕設計 */
+        .action-card {
+            display: flex; /* 讓圖示和文字橫向排列 */
+            align-items: center; /* 垂直置中 */
+            padding: 15px;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            text-decoration: none; /* 移除原本 <a> 標籤的超連結底線 */
+            color: #333; /* 統一文字顏色 */
+            transition: all 0.3s ease; /* 設定動畫過渡時間，讓效果變順暢 */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* 加上輕微的陰影，看起來更立體 */
+        }
+
+        .card { border-left: 5px solid #64748b; } /* 橘色 */
+
+        /* 難點 3：滑鼠懸停特效 (Hover) */
+        .action-card:hover {
+            transform: translateY(-5px); /* 滑鼠移上去時，卡片往上浮動 5px */
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1); /* 同時加深陰影 */
+        }
+
+        /* 圖示與文字的細節排版 */
+        .icon {
+            font-size: 28px;
+            margin-right: 15px;
+        }
+        .card-content {
+            display: flex;
+            flex-direction: column; /* 讓主標題和副標題直向排列 */
+        }
+        .title {
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .desc {
+            font-size: 12px;
+            color: #666;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-box">
+        <h1>班聯會管理後台(點按查看)</h1>
+    </div>
+    <a href="/manager/student/main_comment" class="action-card card">
+        <div class="card-content">
+            <span class="title">主要匿名意見回饋</span>
+            <!-- <span class="desc">小字</span> -->
+        </div>
+    </a>
+    <a href="/manager/student/menu_comment" class="action-card card">
+        <div class="card-content">
+            <span class="title">營養午餐意見回饋</span>
+        </div>
+    </a>
+    <a href="/manager/student/bandai_signup" class="action-card card">
+        <div class="card-content">
+            <span class="title">報名班代大會</span>
+        </div>
+    </a>
+    <a href="/manager/student/bandai_signup" class="action-card card">
+        <div class="card-content">
+            <span class="title">LINE需回覆</span>
+        </div>
+    </a>
+    <a href="/manager/student/bandai_signup" class="action-card card">
+        <div class="card-content">
+            <span class="title">錯誤</span>
+            <span class="desc">學生使用時，若網站錯誤。錯誤的地方&原因會在這寫出來</span>
+        </div>
+    </a>
+    <a href="/manager/student/bandai_signup" class="action-card card">
+        <div class="card-content">
+            <span class="title">需更新~詳細說明</span>
+            <span class="desc">如果忘記當初交接時要做什麼，怎麼做等等的，都可以在這邊找到</span>
+        </div>
+    </a>
+</body>
+</html>
