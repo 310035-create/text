@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>海山高中班聯會 - H.S.O.S名人訪談許願區</title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        input[type="text"] {
+            width: calc(100% - 21px);
+            margin-left: 21px;
+            box-sizing: border-box;
+        }
+        .wish-section { display: none; }
+        .wish-section.active { display: block; }
+
+        .notice-card h3 {
+            border-left-color: #D4A017 !important;
+            color: #2c3e50 !important;
+        }
+
+        .submit-btn {
+            display: none;
+            width: calc(100% - 21px);
+            margin-left: 21px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-box">
+        <h1>H.S.O.S名人訪談 - 許願區</h1>
+    </div>
+
+    <div class="context-card notice-card">
+        <h3>注意事項</h3>
+        <p style="padding-left: 21px; color: #555;">此區僅開放<strong>許願，而非指定</strong>。班聯會參考你們的意見，再進一步向當事人洽談，或決定下一次訪談主題</p>
+    </div><br>
+
+    <div class="context-card">
+        <form action="/student/hsos_wish/submit" method="POST" onsubmit="return check(event)">
+            <input type="hidden" name="csrf_token" value="ImY4ODhkNTRiZjAwMzcwZWJhMGVjOGIwZWRhMGE0MDA1NTMzZDUyYzEi.afMDBw.V68APlP-_OQQ_dAyazOQ_k75uiY"/>
+            
+            <div class="form-group">
+                <h3>你想要許願哪一類內容？</h3>
+                <label><input type="radio" name="wish_type" value="1" onclick="switchType(1)"> 許願受訪人</label><br><br>
+                <label><input type="radio" name="wish_type" value="2" onclick="switchType(2)"> 許願訪談內容</label>
+            </div>
+
+            <div id="section_1" class="wish-section">
+                <div class="form-group">
+                    <h3>許願受訪人：</h3>
+                    <input type="text" name="interviewee" placeholder="請輸入推薦受訪人姓名">
+                </div>
+                <div class="form-group">
+                    <h3>選擇原因：</h3>
+                    <textarea name="reason" cols="40" rows="5" style="width: calc(100% - 21px); margin-left: 21px; box-sizing: border-box;" placeholder="請告訴我們為什麼想訪談他/她..."></textarea>
+                </div>
+            </div>
+
+            <div id="section_2" class="wish-section">
+                <div class="form-group">
+                    <h3>許願訪談內容：</h3>
+                    <textarea name="content_wish" cols="40" rows="8" style="width: calc(100% - 21px); margin-left: 21px; box-sizing: border-box;" placeholder="請填寫您感興趣的訪談主題或特定問題..."></textarea>
+                </div>
+            </div>
+
+            <button type="submit" id="submit_btn" class="submit-btn">送出許願意見</button>
+
+            <div class="footer-flex">
+                <a href="/student/main"><-回首頁</a>
+                <span>by.海山高中班聯會製作</span>
+            </div>
+        </form>
+    </div>
+
+    <script>
+    function switchType(type) {
+        document.getElementById('section_1').classList.remove('active');
+        document.getElementById('section_2').classList.remove('active');
+        
+        const target = document.getElementById('section_' + type);
+        if (target) {
+            target.classList.add('active');
+        }
+
+        document.getElementById('submit_btn').style.display = 'block';
+    }
+
+    function check(event) {
+        const typeSelect = document.querySelector('input[name="wish_type"]:checked');
+        
+        if (!typeSelect) {
+            alert("請先選擇您要許願的類別！");
+            event.preventDefault();
+            return;
+        }
+
+        const type = typeSelect.value;
+        if (type === "1") {
+            const interviewee = document.querySelector('input[name="interviewee"]').value.trim();
+            const reason = document.querySelector('textarea[name="reason"]').value.trim();
+            if (interviewee === "" || reason === "") {
+                alert("請填寫完『許願受訪人』與『選擇原因』兩項內容！");
+                event.preventDefault();
+            }
+        } else if (type === "2") {
+            const content = document.querySelector('textarea[name="content_wish"]').value.trim();
+            if (content === "") {
+                alert("請填寫您的『許願訪談內容』！");
+                event.preventDefault();
+            }
+        }
+
+        alert('不好意思~網站還沒準備好！');
+        event.preventDefault();
+    }
+    </script>
+</body>
+</html>
